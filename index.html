@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO: Título con keyword objetivo -->
+  <title>AndeTech — AndeStat V2.0 | Potenciostato bajo costo (ASV) Open-Source</title>
+
+  <!-- SEO: Descripción real (sin Lorem Ipsum) -->
+  <meta name="description" content="AndeStat V2.0 es un potenciostato DIY de bajo costo y open-source para electroquímica (ASV). Descarga el software en Python, documentación PDF y especificaciones." />
+
+  <!-- Open Graph (para WhatsApp/LinkedIn) -->
+  <meta property="og:title" content="AndeTech — AndeStat V2.0 (Potenciostato bajo costo, Open-Source)" />
+  <meta property="og:description" content="Detección de metales pesados para todos. Potenciostato DIY: software Python, docs PDF, specs claras y repositorio público." />
+  <meta property="og:type" content="website" />
+  <!-- TODO: sube una imagen a /assets/og-andestat.jpg y descomenta -->
+  <!-- <meta property="og:image" content="https://andetech.github.io/assets/og-andestat.jpg" /> -->
+  <meta property="og:locale" content="es_PE" />
+
+  <!-- Favicon (placeholder) -->
+  <!-- TODO: agrega /assets/favicon.ico o set completo de favicons -->
+  <link rel="icon" href="assets/favicon.ico" />
+
+  <!-- Bootstrap 5 (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons (CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <style>
+    /* Estilo "engineering precision": tipografía sobria, contraste alto, layout limpio */
+    :root {
+      --bg: #0b1020;
+      --panel: #101a33;
+      --text: #eaf0ff;
+      --muted: #b9c2dd;
+      --accent: #7cf2c7;
+      --line: rgba(255,255,255,0.12);
+    }
+
+    body {
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(124,242,199,0.12), transparent 60%),
+                  radial-gradient(900px 500px at 80% 30%, rgba(84,164,255,0.10), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+    }
+
+    .navbar {
+      background: rgba(11, 16, 32, 0.75);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero {
+      padding: 5.5rem 0 3.5rem 0;
+    }
+
+    .badge-tech {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+    }
+
+    .card {
+      background: rgba(16, 26, 51, 0.72);
+      border: 1px solid var(--line);
+    }
+
+    .section {
+      padding: 3.5rem 0;
+    }
+
+    .section-title {
+      letter-spacing: 0.3px;
+    }
+
+    .specs-table {
+      border-color: var(--line) !important;
+    }
+    .specs-table th, .specs-table td {
+      color: var(--text);
+      border-color: var(--line) !important;
+      background: rgba(16, 26, 51, 0.45);
+    }
+
+    a { color: var(--accent); }
+    a:hover { color: #a7ffe2; }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      border: 0;
+      color: #041016;
+      font-weight: 700;
+    }
+    .btn-accent:hover {
+      background: #a7ffe2;
+      color: #041016;
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+  </style>
+
+  <!-- Google Analytics (GA4) - opcional: pega tu Measurement ID en Fase 4 -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  -->
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#top">
+        <span class="mono">AndeTech</span>
+        <span class="badge rounded-pill badge-tech ms-2">AndeStat V2.0</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div id="nav" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="#features">Características</a></li>
+          <li class="nav-item"><a class="nav-link" href="#specs">Specs</a></li>
+          <li class="nav-item"><a class="nav-link" href="#download">Descargas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#docs">Docs</a></li>
+          <li class="nav-item"><a class="nav-link" href="#team">Equipo</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="top" class="hero">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <p class="text-uppercase text-secondary mb-2 mono">Open-Source Scientific Hardware • Perú</p>
+
+          <!-- TODO: Ajusta este H1 si deseas enfatizar "potenciostato bajo costo" aún más -->
+          <h1 class="display-5 fw-bold">
+            Detección de metales pesados para todos: <span style="color:var(--accent)">AndeStat V2.0</span>
+          </h1>
+
+          <!-- TODO: Reescribe este párrafo con tu propuesta final (máx 2–3 líneas) -->
+          <p class="lead mt-3" style="color:var(--muted)">
+            Potenciostato DIY de bajo costo para electroquímica (incluye ASV). Software en Python, documentación en PDF y especificaciones transparentes.
+            Construido por autodidactas peruanos con mentalidad de laboratorio: medir, iterar, publicar.
+          </p>
+
+          <div class="d-flex flex-wrap gap-2 mt-4">
+            <!-- TODO: Cambia el link al Release real de tu GUI -->
+            <a class="btn btn-accent btn-lg" href="https://github.com/ANDATECH/AndeStat-GUI/releases" target="_blank" rel="noopener">
+              <i class="bi bi-download me-2"></i>Descargar Software (Python GUI)
+            </a>
+
+            <!-- TODO: Cambia el link al repo principal -->
+            <a class="btn btn-outline-light btn-lg" href="https://github.com/ANDATECH" target="_blank" rel="noopener">
+              <i class="bi bi-github me-2"></i>Ver Repositorio
+            </a>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 mt-4">
+            <span class="badge badge-tech rounded-pill px-3 py-2"><i class="bi bi-cpu me-1"></i>ESP32</span>
+            <span class="badge badge-tech rounded-pill px-3 py-2"><i class="bi bi-graph-up me-1"></i>ASV</span>
+            <span class="badge badge-tech rounded-pill px-3 py-2"><i class="bi bi-tools me-1"></i>DIY + Reparabilidad</span>
+            <span class="badge badge-tech rounded-pill px-3 py-2"><i class="bi bi-file-earmark-code me-1"></i>Open Source</span>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card p-4">
+            <h2 class="h5 mb-3 section-title">Qué puedes hacer aquí</h2>
+            <ul class="mb-0" style="color:var(--muted)">
+              <li class="mb-2"><strong>Descargar</strong> la GUI en Python (Releases).</li>
+              <li class="mb-2"><strong>Leer</strong> la documentación (PDFs) y guías de uso.</li>
+              <li class="mb-2"><strong>Ver specs</strong> del hardware (capabilidades, I/O, modos).</li>
+              <li class="mb-0"><strong>Contactar</strong> para soporte, colaboración o laboratorio/educación.</li>
+            </ul>
+          </div>
+          <!-- TODO: Opcional: reemplaza esta card por una foto real del AndeStat -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- FEATURES -->
+  <section id="features" class="section">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-lg-8">
+          <h2 class="h3 section-title">Potenciostato bajo costo para ciencia real</h2>
+          <!-- TODO: Ajusta este texto con tu historia real (La Oroya / accesibilidad / educación) -->
+          <p style="color:var(--muted)">
+            AndeTech nace para reducir la brecha entre “tener curiosidad” y “tener instrumentación”.
+            Si la contaminación por metales pesados afecta a comunidades, la medición no debería ser un lujo.
+          </p>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="card h-100 p-4">
+            <div class="h2 mb-2"><i class="bi bi-rulers"></i></div>
+            <h3 class="h5">Precisión y transparencia</h3>
+            <p class="mb-0" style="color:var(--muted)">
+              Specs claras, firmware/software versionados y decisiones de diseño explicadas. Ingeniería reproducible.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 p-4">
+            <div class="h2 mb-2"><i class="bi bi-cash-coin"></i></div>
+            <h3 class="h5">Accesible + reparable</h3>
+            <p class="mb-0" style="color:var(--muted)">
+              Enfoque DIY: partes obtenibles, mantenimiento posible y aprendizaje incorporado (no “caja negra”).
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 p-4">
+            <div class="h2 mb-2"><i class="bi bi-code-slash"></i></div>
+            <h3 class="h5">Open-source y comunidad</h3>
+            <p class="mb-0" style="color:var(--muted)">
+              Repositorio público, releases y issues. Mejoras colaborativas para hardware científico.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECS -->
+  <section id="specs" class="section">
+    <div class="container">
+      <div class="row mb-3 align-items-end">
+        <div class="col-lg-8">
+          <h2 class="h3 section-title">Especificaciones (ASV + control electroquímico)</h2>
+          <p style="color:var(--muted)" class="mb-0">
+            Aquí es donde los usuarios técnicos deciden. Mantén esto actualizado y medible.
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+          <!-- TODO: link a PDF de datasheet si lo tienes -->
+          <a href="#docs" class="btn btn-outline-light">
+            <i class="bi bi-file-earmark-pdf me-2"></i>Ver Datasheet (PDF)
+          </a>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table specs-table table-bordered align-middle">
+          <thead>
+            <tr>
+              <th style="width: 28%">Parámetro</th>
+              <th>Valor</th>
+              <th style="width: 28%">Notas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- TODO: Reemplaza con tus specs reales verificadas (evita promesas no medidas) -->
+            <tr>
+              <td>MCU</td>
+              <td>ESP32</td>
+              <td>Comunicación y control</td>
+            </tr>
+            <tr>
+              <td>Modos</td>
+              <td>ASV (Anodic Stripping Voltammetry), (otros: CV/DPV si aplica)</td>
+              <td>Publica qué está estable vs. experimental</td>
+            </tr>
+            <tr>
+              <td>Salida</td>
+              <td>Rail-to-rail (si aplica)</td>
+              <td>Indica rango real medido</td>
+            </tr>
+            <tr>
+              <td>Interfaz</td>
+              <td>USB / Serial (según tu implementación)</td>
+              <td>Baudrate, drivers, OS soportados</td>
+            </tr>
+            <tr>
+              <td>Software</td>
+              <td>Python GUI (Windows/Linux)</td>
+              <td>Link directo a Releases</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="mt-3" style="color:var(--muted)">
+        Sugerencia: añade “<span class="mono">test results</span>” (capturas/CSV) para construir confianza técnica.
+      </p>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section id="download" class="section">
+    <div class="container">
+      <div class="row g-3 align-items-stretch">
+        <div class="col-lg-6">
+          <div class="card p-4 h-100">
+            <h2 class="h4 section-title"><i class="bi bi-download me-2"></i>Descargas</h2>
+            <p style="color:var(--muted)">
+              Lo más importante: que el botón de descarga sea obvio y rápido.
+            </p>
+
+            <!-- TODO: Ajusta repos/links reales -->
+            <div class="d-grid gap-2">
+              <a class="btn btn-accent btn-lg" href="https://github.com/ANDATECH/AndeStat-GUI/releases" target="_blank" rel="noopener">
+                Descargar GUI (Releases)
+              </a>
+              <a class="btn btn-outline-light" href="https://github.com/ANDATECH/AndeStat-Firmware" target="_blank" rel="noopener">
+                Firmware (Repo)
+              </a>
+              <a class="btn btn-outline-light" href="https://github.com/ANDATECH/AndeStat-Hardware" target="_blank" rel="noopener">
+                Hardware (Esquemáticos/PCB)
+              </a>
+            </div>
+
+            <hr style="border-color: var(--line);" />
+            <p class="mb-0" style="color:var(--muted)">
+              Tip: publica instaladores o un ZIP con “ejecutable + drivers + README” para reducir fricción.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card p-4 h-100">
+            <h2 class="h4 section-title"><i class="bi bi-book me-2"></i>Quick Start</h2>
+            <ol style="color:var(--muted)" class="mb-0">
+              <!-- TODO: Ajusta estos pasos al flujo real -->
+              <li>Descarga la GUI desde <span class="mono">Releases</span>.</li>
+              <li>Conecta AndeStat V2.0 por USB/Serial.</li>
+              <li>Abre la GUI y selecciona el puerto.</li>
+              <li>Carga el método (ASV) y ejecuta la medición.</li>
+              <li>Exporta CSV y adjúntalo si abres un Issue.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCS -->
+  <section id="docs" class="section">
+    <div class="container">
+      <div class="row mb-3">
+        <div class="col-lg-8">
+          <h2 class="h3 section-title">Documentación (PDFs)</h2>
+          <p style="color:var(--muted)">
+            Mantén los PDFs versionados dentro del repo (o en un repo “docs”) y enlázalos aquí.
+          </p>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <!-- TODO: Sube tus PDFs a /docs y actualiza links -->
+        <div class="col-md-4">
+          <div class="card p-4 h-100">
+            <h3 class="h5"><i class="bi bi-file-earmark-pdf me-2"></i>Manual de Usuario</h3>
+            <p style="color:var(--muted)">Instalación, conexión, primeros experimentos.</p>
+            <a href="docs/Manual-AndeStatV2.pdf" class="btn btn-outline-light">Abrir PDF</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card p-4 h-100">
+            <h3 class="h5"><i class="bi bi-file-earmark-pdf me-2"></i>Datasheet / Specs</h3>
+            <p style="color:var(--muted)">Rangos, precisión, limitaciones, validación.</p>
+            <a href="docs/Datasheet-AndeStatV2.pdf" class="btn btn-outline-light">Abrir PDF</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card p-4 h-100">
+            <h3 class="h5"><i class="bi bi-file-earmark-pdf me-2"></i>Guía ASV</h3>
+            <p style="color:var(--muted)">Protocolos, preparación y buenas prácticas.</p>
+            <a href="docs/Guia-ASV.pdf" class="btn btn-outline-light">Abrir PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM / ABOUT -->
+  <section id="team" class="section">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <h2 class="h3 section-title">Sobre AndeTech</h2>
+
+          <!-- TODO: Pega aquí tu historia real (sin marketing inflado). -->
+          <p style="color:var(--muted)">
+            Somos un equipo autodidacta en Perú construyendo hardware científico open‑source.
+            Nos mueve una idea simple: si un problema es real (metales pesados, calidad de agua, educación),
+            la instrumentación para medirlo también debería ser accesible.
+          </p>
+
+          <p style="color:var(--muted)" class="mb-0">
+            Nuestro estándar: diseños revisables, código público, documentación legible y iteración continua.
+          </p>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card p-4">
+            <h3 class="h5">Colabora</h3>
+            <ul class="mb-0" style="color:var(--muted)">
+              <li>¿Eres investigador/a? Comparte datasets y validación.</li>
+              <li>¿Eres maker? Ayuda con ensamblaje, BOM y guías.</li>
+              <li>¿Eres dev? Mejora la GUI, drivers, exportación y tests.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contacto" class="section">
+    <div class="container">
+      <div class="card p-4">
+        <div class="row g-3 align-items-center">
+          <div class="col-lg-8">
+            <h2 class="h4 section-title mb-1">Contacto</h2>
+            <p class="mb-0" style="color:var(--muted)">
+              Soporte técnico y colaboraciones: usa GitHub Issues para trazabilidad. Para alianzas, escríbenos por email.
+            </p>
+          </div>
+          <div class="col-lg-4 text-lg-end">
+            <!-- TODO: Cambia el email y el repo de issues -->
+            <a class="btn btn-accent me-2" href="mailto:contacto@andetech.pe">Email</a>
+            <a class="btn btn-outline-light" href="https://github.com/ANDATECH/AndeStat-GUI/issues" target="_blank" rel="noopener">
+              <i class="bi bi-bug me-2"></i>Issues
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer py-4">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <div>
+        <span class="mono">AndeTech</span> • Open‑Source Scientific Hardware • Perú
+      </div>
+      <div style="color:var(--muted)">
+        <!-- TODO: actualiza año -->
+        © <span id="year"></span> — Hecho con HTML + Bootstrap, deploy en GitHub Pages.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
